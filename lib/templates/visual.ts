@@ -1,4 +1,5 @@
 import { escape, pick, pickArr, sectionLabels, RenderInput } from "./shared";
+import type { BaseCV } from "@/lib/schema";
 
 export function renderVisual({ cv, gen }: RenderInput): string {
   const lang = gen.language;
@@ -10,37 +11,42 @@ export function renderVisual({ cv, gen }: RenderInput): string {
       (e) =>
         `<div class="row">
           <div>
-            <div class="row-title">${escape(e.school)}</div>
+            <div class="row-title">${escape(pick(e.school, lang))}</div>
             <div class="row-sub">${escape(pick(e.degree, lang))}</div>
           </div>
-          <div class="row-date">${escape(e.start)} – ${escape(e.end)}</div>
+          <div class="row-date">${escape(pick(e.start, lang))} – ${escape(pick(e.end, lang))}</div>
         </div>`
     )
     .join("");
 
-  const expHtml = cv.experience
-    .map(
-      (x) =>
-        `<div class="entry">
+  const renderRoles = (roles: BaseCV["experience"]) =>
+    roles
+      .map((x) => {
+        const bullets = pickArr(x.bullets, lang);
+        return `<div class="entry">
           <div class="row">
             <div>
               <div class="row-title">${escape(pick(x.role, lang))}</div>
-              <div class="row-sub">${escape(x.company)}</div>
+              <div class="row-sub">${escape(pick(x.company, lang))}</div>
             </div>
-            <div class="row-date">${escape(x.start)} – ${escape(x.end)}</div>
+            <div class="row-date">${escape(pick(x.start, lang))} – ${escape(pick(x.end, lang))}</div>
           </div>
-          <ul>${pickArr(x.bullets, lang).map((b) => `<li>${escape(b)}</li>`).join("")}</ul>
-        </div>`
-    )
-    .join("");
+          ${bullets.length ? `<ul>${bullets.map((b) => `<li>${escape(b)}</li>`).join("")}</ul>` : ""}
+        </div>`;
+      })
+      .join("");
+
+  const expHtml = renderRoles(cv.experience);
+  const researchHtml = cv.research?.length ? renderRoles(cv.research) : "";
+  const consentNote = cv.consent ? pick(cv.consent, lang).trim() : "";
 
   const awardsHtml = cv.awards
     .map(
       (a) =>
         `<div class="entry">
           <div class="row">
-            <div class="row-title">${escape(a.title)}</div>
-            <div class="row-date">${escape(a.date)}</div>
+            <div class="row-title">${escape(pick(a.title, lang))}</div>
+            <div class="row-date">${escape(pick(a.date, lang))}</div>
           </div>
           <ul>${pickArr(a.bullets, lang).map((b) => `<li>${escape(b)}</li>`).join("")}</ul>
         </div>`
@@ -110,6 +116,7 @@ export function renderVisual({ cv, gen }: RenderInput): string {
   .stack { font-style: italic; color: #1e3a8a; }
   .skill-row { margin-bottom: 3pt; }
   .skill-label { font-weight: 600; color: #0f172a; }
+  .consent { margin-top: 12pt; font-size: 8.5pt; color: #64748b; font-style: italic; }
 </style>
 </head>
 <body>
@@ -129,11 +136,14 @@ export function renderVisual({ cv, gen }: RenderInput): string {
 
   <h2>${escape(L.experience)}</h2>${expHtml}
 
+  ${researchHtml ? `<h2>${escape(L.research)}</h2>${researchHtml}` : ""}
+
   <h2>${escape(L.awards)}</h2>${awardsHtml}
 
   <h2>${escape(L.projects)}</h2>${projectsHtml}
 
   <h2>${escape(L.skills)}</h2>${skillsHtml}
+  ${consentNote ? `<p class="consent">${escape(consentNote)}</p>` : ""}
 </body>
 </html>`;
 }

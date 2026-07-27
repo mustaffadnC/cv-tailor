@@ -18,30 +18,39 @@
   },
   "education": [
     {
-      "school": "Türk Hava Kurumu Üniversitesi",
+      "school": {
+        "tr": "Türk Hava Kurumu Üniversitesi",
+        "en": "Turkish Aeronautical Association University"
+      },
       "degree": {
         "tr": "Yazılım Mühendisliği Lisans Derecesi",
         "en": "B.Sc. in Software Engineering"
       },
-      "start": "2021",
-      "end": "Halen"
+      "start": { "tr": "2021", "en": "2021" },
+      "end": { "tr": "Halen", "en": "Present" }
     },
     {
-      "school": "Mehmet Çelikel Anadolu Lisesi",
+      "school": {
+        "tr": "Mehmet Çelikel Anadolu Lisesi",
+        "en": "Mehmet Çelikel Anatolian High School"
+      },
       "degree": { "tr": "Lise", "en": "High School" },
-      "start": "2016",
-      "end": "2020"
+      "start": { "tr": "2016", "en": "2016" },
+      "end": { "tr": "2020", "en": "2020" }
     }
   ],
   "experience": [
     {
-      "company": "Ülgen AR-GE (Okul AR-GE Grubu)",
+      "company": {
+        "tr": "Ülgen AR-GE (Okul AR-GE Grubu)",
+        "en": "Ülgen R&D (University R&D Group)"
+      },
       "role": {
         "tr": "Nesne Tabanlı Gömülü Yazılım Mühendisi",
         "en": "Object-Oriented Embedded Software Engineer"
       },
-      "start": "2024",
-      "end": "Halen",
+      "start": { "tr": "2024", "en": "2024" },
+      "end": { "tr": "Halen", "en": "Present" },
       "bullets": {
         "tr": [
           "C++ ve C# ile OOP prensiplerine uygun, modüler ve sürdürülebilir gömülü yazılımlar geliştirdim; katmanlı mimari ve algoritma tasarımıyla okunabilirlik ve performansı artırdım.",
@@ -56,13 +65,13 @@
       }
     },
     {
-      "company": "ASTOR Enerji A.Ş.",
+      "company": { "tr": "ASTOR Enerji A.Ş.", "en": "ASTOR Enerji A.Ş." },
       "role": {
         "tr": "Stajyer Yazılım Geliştirici",
         "en": "Software Developer Intern"
       },
-      "start": "Haziran 2025",
-      "end": "Temmuz 2025",
+      "start": { "tr": "Haziran 2025", "en": "June 2025" },
+      "end": { "tr": "Temmuz 2025", "en": "July 2025" },
       "bullets": {
         "tr": [
           "C# ve WinForms ile şirket içi süreçleri destekleyen masaüstü uygulamalar geliştirdim; kullanıcı dostu arayüzlerle operasyonel verimliliğe katkı sağladım.",
@@ -79,8 +88,11 @@
   ],
   "awards": [
     {
-      "title": "IDEA4Defence (TUSAŞ & GENÇ MÜSİAD) — 1.'lik Ödülü",
-      "date": "Aralık 2025",
+      "title": {
+        "tr": "IDEA4Defence (TUSAŞ & GENÇ MÜSİAD) — 1.'lik Ödülü",
+        "en": "IDEA4Defence (TUSAŞ & GENÇ MÜSİAD) — 1st Prize"
+      },
+      "date": { "tr": "Aralık 2025", "en": "December 2025" },
       "bullets": {
         "tr": [
           "TUSAŞ İHA platformları için tasarlanan ve TUSAŞ tarafından onaylanan modüler bir sistemin yazılım geliştirme çalışmalarında görev aldım.",

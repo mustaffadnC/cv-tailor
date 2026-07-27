@@ -18,23 +18,23 @@ export const Personal = z.object({
 });
 
 export const Education = z.object({
-  school: z.string(),
+  school: Bilingual,
   degree: Bilingual,
-  start: z.string(),
-  end: z.string(),
+  start: Bilingual,
+  end: Bilingual,
 });
 
 export const Experience = z.object({
-  company: z.string(),
+  company: Bilingual,
   role: Bilingual,
-  start: z.string(),
-  end: z.string(),
+  start: Bilingual,
+  end: Bilingual,
   bullets: z.object({ tr: z.array(z.string()), en: z.array(z.string()) }),
 });
 
 export const Award = z.object({
-  title: z.string(),
-  date: z.string(),
+  title: Bilingual,
+  date: Bilingual,
   bullets: z.object({ tr: z.array(z.string()), en: z.array(z.string()) }),
 });
 
@@ -53,9 +53,13 @@ export const BaseCV = z.object({
   summary: Bilingual,
   education: z.array(Education),
   experience: z.array(Experience),
+  // Üniversite AR-GE / araştırma takımı deneyimi — iş deneyiminden ayrı bölüm
+  research: z.array(Experience).optional(),
   awards: z.array(Award),
   skills: z.array(SkillCategory),
   languages: z.array(Language),
+  // Dile göre CV'nin altına basılan veri işleme izni (boş dizeyse basılmaz)
+  consent: Bilingual.optional(),
 });
 export type BaseCV = z.infer<typeof BaseCV>;
 
