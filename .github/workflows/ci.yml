@@ -1,0 +1,25 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      # next build runs the TypeScript type check as part of the build.
+      # No API key needed: lib/claude.ts constructs the client lazily, inside
+      # the request path, so nothing touches it at build time.
+      - name: Build
+        run: npm run build

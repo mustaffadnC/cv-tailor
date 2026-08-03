@@ -1,5 +1,10 @@
 # CV Tailor
 
+[![CI](https://github.com/mustaffadnC/cv-tailor/actions/workflows/ci.yml/badge.svg)](https://github.com/mustaffadnC/cv-tailor/actions/workflows/ci.yml)
+
+> **AI araçlarıyla geliştirildi.** Bu projenin kodunun büyük kısmı Claude Code ile yazıldı ve
+> iterasyona sokuldu. Ürün kararları, CV şeması ve proje seçim mantığı bana ait.
+
 İlana özel, ATS-uyumlu CV üretici. CV'nin **sabit bölümleri** (kişisel bilgi, eğitim, iş deneyimi, ödüller, yetenekler, diller) `data/cv.json`'da bir kez tanımlanır; her başvuruda yalnızca **Projelerim** bölümü, GitHub portfolyonun gerçek README'lerinden seçilerek ilanın diline göre yeniden yazılır.
 
 ## Çalıştırma

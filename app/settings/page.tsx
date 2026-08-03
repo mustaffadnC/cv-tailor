@@ -76,7 +76,7 @@ export default function SettingsPage() {
           label="Kullanıcı adı (boş bırakırsanız cv.json'daki github URL'sinden alınır)"
           value={username}
           onChange={setUsername}
-          placeholder="conny0506"
+          placeholder="mustaffadnC"
         />
         <button
           onClick={sync}
