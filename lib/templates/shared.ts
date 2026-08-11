@@ -27,6 +27,7 @@ export function sectionLabels(lang: "tr" | "en") {
         projects: "Projelerim",
         skills: "Yetenekler",
         languages: "Yabancı Diller",
+        references: "Referanslar",
       }
     : {
         summary: "Profile Summary",
@@ -37,6 +38,7 @@ export function sectionLabels(lang: "tr" | "en") {
         projects: "Projects",
         skills: "Skills",
         languages: "Languages",
+        references: "References",
       };
 }
 

@@ -90,6 +90,20 @@ export function renderAts({ cv, gen }: RenderInput): string {
 
   const consentNote = cv.consent ? pick(cv.consent, lang).trim() : "";
 
+  // Ünvanı o dilde boş olan referans basılmaz (ör. yalnızca TR CV'de görünsün)
+  const refs = (cv.references ?? []).filter((r) => pick(r.title, lang).trim());
+  const referencesHtml = refs
+    .map((r) => {
+      const contact = [r.phone, r.email].filter(Boolean).map((c) => escape(c!)).join(" &middot; ");
+      return `
+    <div class="entry">
+      <div class="row-title">${escape(r.name)}</div>
+      <div class="row-sub">${escape(pick(r.title, lang))}</div>
+      ${contact ? `<div class="row-sub">${contact}</div>` : ""}
+    </div>`;
+    })
+    .join("");
+
   const langsHtml = cv.languages
     .map(
       (l) =>
@@ -168,6 +182,8 @@ export function renderAts({ cv, gen }: RenderInput): string {
 
   <h2>${escape(L.languages)}</h2>
   <ul>${langsHtml}</ul>
+
+  ${referencesHtml ? `<h2>${escape(L.references)}</h2>\n  ${referencesHtml}` : ""}
   ${consentNote ? `<p class="consent">${escape(consentNote)}</p>` : ""}
 </body>
 </html>`;

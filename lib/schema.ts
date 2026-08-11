@@ -48,6 +48,14 @@ export const Language = z.object({
   level: Bilingual,
 });
 
+export const Reference = z.object({
+  name: z.string(),
+  // Bir dildeki ünvan boş bırakılırsa referans o dildeki CV'de hiç basılmaz
+  title: Bilingual,
+  phone: z.string().optional(),
+  email: z.string().optional(),
+});
+
 export const BaseCV = z.object({
   personal: Personal,
   summary: Bilingual,
@@ -58,6 +66,7 @@ export const BaseCV = z.object({
   awards: z.array(Award),
   skills: z.array(SkillCategory),
   languages: z.array(Language),
+  references: z.array(Reference).optional(),
   // Dile göre CV'nin altına basılan veri işleme izni (boş dizeyse basılmaz)
   consent: Bilingual.optional(),
 });

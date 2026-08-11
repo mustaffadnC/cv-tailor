@@ -40,6 +40,19 @@ export function renderVisual({ cv, gen }: RenderInput): string {
   const researchHtml = cv.research?.length ? renderRoles(cv.research) : "";
   const consentNote = cv.consent ? pick(cv.consent, lang).trim() : "";
 
+  // Ünvanı o dilde boş olan referans basılmaz (ör. yalnızca TR CV'de görünsün)
+  const refs = (cv.references ?? []).filter((r) => pick(r.title, lang).trim());
+  const referencesHtml = refs
+    .map((r) => {
+      const contact = [r.phone, r.email].filter(Boolean).map((c) => escape(c!)).join(" &middot; ");
+      return `<div class="entry">
+          <div class="row-title">${escape(r.name)}</div>
+          <div class="row-sub">${escape(pick(r.title, lang))}</div>
+          ${contact ? `<div class="row-sub">${contact}</div>` : ""}
+        </div>`;
+    })
+    .join("");
+
   const awardsHtml = cv.awards
     .map(
       (a) =>
@@ -143,6 +156,8 @@ export function renderVisual({ cv, gen }: RenderInput): string {
   <h2>${escape(L.projects)}</h2>${projectsHtml}
 
   <h2>${escape(L.skills)}</h2>${skillsHtml}
+
+  ${referencesHtml ? `<h2>${escape(L.references)}</h2>${referencesHtml}` : ""}
   ${consentNote ? `<p class="consent">${escape(consentNote)}</p>` : ""}
 </body>
 </html>`;
