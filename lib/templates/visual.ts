@@ -138,7 +138,7 @@ export function renderVisual({ cv, gen }: RenderInput): string {
     <div class="title">${escape(pick(p.title, lang))}</div>
     <div class="contact">
       ${escape(p.contact.email)} &nbsp;|&nbsp; ${escape(p.contact.phone)}<br/>
-      ${escape(p.contact.linkedin)} &nbsp;|&nbsp; ${escape(p.contact.github)}
+      ${[p.contact.linkedin, p.contact.github].filter((x): x is string => Boolean(x)).map(escape).join(" &nbsp;|&nbsp; ")}
     </div>
   </div>
 

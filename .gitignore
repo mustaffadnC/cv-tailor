@@ -48,3 +48,6 @@ next-env.d.ts
 
 # local dev logs
 dev.log
+
+# üçüncü kişilere ait CV profilleri — asla commit etme
+/data/profiles/

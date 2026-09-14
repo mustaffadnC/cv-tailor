@@ -13,8 +13,9 @@ export async function POST(req: NextRequest) {
 
     if (!username) {
       const cv = await readBaseCV();
-      const url = new URL(cv.personal.contact.github);
-      username = url.pathname.replace(/^\/+/, "").split("/")[0];
+      const github = cv.personal.contact.github;
+      const url = github ? new URL(github) : null;
+      username = url?.pathname.replace(/^\/+/, "").split("/")[0];
     }
 
     if (!username) {

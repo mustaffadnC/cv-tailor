@@ -9,8 +9,8 @@ export function renderAts({ cv, gen }: RenderInput): string {
   const contactLine = [
     p.contact.email,
     p.contact.phone,
-    p.contact.linkedin.replace(/^https?:\/\//, ""),
-    p.contact.github.replace(/^https?:\/\//, ""),
+    p.contact.linkedin?.replace(/^https?:\/\//, ""),
+    p.contact.github?.replace(/^https?:\/\//, ""),
     p.contact.location,
   ]
     .filter((x): x is string => Boolean(x))

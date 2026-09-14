@@ -6,8 +6,8 @@ export type Bilingual = z.infer<typeof Bilingual>;
 export const Contact = z.object({
   phone: z.string(),
   email: z.string().email(),
-  linkedin: z.string().url(),
-  github: z.string().url(),
+  linkedin: z.string().url().optional(),
+  github: z.string().url().optional(),
   location: z.string().optional(),
 });
 
