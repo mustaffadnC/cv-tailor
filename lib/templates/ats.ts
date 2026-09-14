@@ -11,13 +11,15 @@ export function renderAts({ cv, gen }: RenderInput): string {
     p.contact.phone,
     p.contact.linkedin?.replace(/^https?:\/\//, ""),
     p.contact.github?.replace(/^https?:\/\//, ""),
-    p.contact.location,
+    p.contact.location && pick(p.contact.location, lang),
   ]
     .filter((x): x is string => Boolean(x))
     .map(escape)
     .join(" &middot; ");
 
+  // Okul adı o dilde boş bırakılan eğitim kaydı basılmaz (ör. lise yalnızca TR CV'de)
   const eduHtml = cv.education
+    .filter((e) => pick(e.school, lang).trim())
     .map(
       (e) => `
     <div class="row">
@@ -117,13 +119,13 @@ export function renderAts({ cv, gen }: RenderInput): string {
 <meta charset="utf-8" />
 <title>${escape(p.name)} — ${escape(pick(p.title, lang))}</title>
 <style>
-  @page { size: A4; margin: 16mm 14mm; }
+  @page { size: A4; margin: 13mm 14mm; }
   * { box-sizing: border-box; }
   html, body { margin:0; padding:0; }
   body {
     font-family: 'Inter', 'Source Sans Pro', Arial, sans-serif;
-    font-size: 10.5pt;
-    line-height: 1.4;
+    font-size: 10pt;
+    line-height: 1.3;
     color: #1a1a1a;
   }
   header { margin-bottom: 8pt; }
@@ -137,16 +139,16 @@ export function renderAts({ cv, gen }: RenderInput): string {
     color: #111;
     border-bottom: 1px solid #888;
     padding-bottom: 2pt;
-    margin: 12pt 0 6pt;
+    margin: 10pt 0 5pt;
   }
   .summary { text-align: justify; }
   .row { display: flex; justify-content: space-between; gap: 12pt; }
   .row-title { font-weight: 600; }
   .row-sub { color: #444; font-size: 10pt; }
   .row-date { font-size: 9.5pt; color: #555; white-space: nowrap; }
-  .entry { margin-bottom: 8pt; }
+  .entry { margin-bottom: 6pt; }
   ul { margin: 4pt 0 0 16pt; padding: 0; }
-  li { margin-bottom: 2pt; }
+  li { margin-bottom: 1.5pt; }
   .stack { font-style: italic; }
   .skill-row { margin-bottom: 3pt; }
   .skill-label { font-weight: 600; }

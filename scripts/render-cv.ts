@@ -8,7 +8,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { BaseCV, Generation } from "@/lib/schema";
-import { renderPdf } from "@/lib/pdf";
+import { renderHtml, renderPdf } from "@/lib/pdf";
 
 async function main() {
   const [cvPath, genPath, outPath] = process.argv.slice(2);
@@ -19,6 +19,14 @@ async function main() {
 
   const cv = BaseCV.parse(JSON.parse(await fs.readFile(cvPath, "utf8")));
   const gen = Generation.parse(JSON.parse(await fs.readFile(genPath, "utf8")));
+
+  // .html uzantısı verilirse PDF yerine şablon HTML'i yazılır (şablon hata ayıklama / metin kontrolü)
+  if (outPath.toLowerCase().endsWith(".html")) {
+    await fs.mkdir(path.dirname(path.resolve(outPath)), { recursive: true });
+    await fs.writeFile(outPath, renderHtml(cv, gen), "utf8");
+    console.log(`${outPath} yazıldı (HTML, ${gen.language}/${gen.template})`);
+    return;
+  }
 
   const pdf = await renderPdf(cv, gen);
   await fs.mkdir(path.dirname(path.resolve(outPath)), { recursive: true });

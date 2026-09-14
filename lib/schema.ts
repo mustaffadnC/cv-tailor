@@ -8,7 +8,7 @@ export const Contact = z.object({
   email: z.string().email(),
   linkedin: z.string().url().optional(),
   github: z.string().url().optional(),
-  location: z.string().optional(),
+  location: Bilingual.optional(),
 });
 
 export const Personal = z.object({

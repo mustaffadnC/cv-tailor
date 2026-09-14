@@ -6,7 +6,9 @@ export function renderVisual({ cv, gen }: RenderInput): string {
   const L = sectionLabels(lang);
   const p = cv.personal;
 
+  // Okul adı o dilde boş bırakılan eğitim kaydı basılmaz (ör. lise yalnızca TR CV'de)
   const eduHtml = cv.education
+    .filter((e) => pick(e.school, lang).trim())
     .map(
       (e) =>
         `<div class="row">
